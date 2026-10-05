@@ -1,15 +1,16 @@
-# Active Directory & Infrastructure Home Lab
+#  Active Directory & Infrastructure Home Lab
 
-#O projekcie
+##  O projekcie
 Wdrożenie i konfiguracja lokalnego środowiska wirtualnego opartego o Windows Server 2022 oraz Windows 11 Enterprise w celu symulacji infrastruktury firmowej.
 
-#Użyte Technologie
+##  Użyte Technologie
 * Windows Server 2022 (Active Directory DS, DNS, GPO, SMB)
 * Windows 11 Pro / Enterprise
 * Oracle VirtualBox (Internal Network / Isolated Lab)
 * PowerShell / CLI
 
-#Zrealizowane zadania & Dowody (Screenshots)
+
+##  Zrealizowane zadania & Dowody (Screenshots)
 
 1. Konfiguracja AD DS i Dołączenie Klienta
 Skonfigurowano kontroler domeny `cyberlab.local`. Stacja robocza Windows 11 została pomyślnie dołączona do domeny.
