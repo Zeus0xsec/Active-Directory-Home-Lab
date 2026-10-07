@@ -27,3 +27,29 @@ Utworzono i wyegzekwowano politykę GPO blokującą dostęp do Wiersza Poleceń 
 4. Udziały Plikowe SMB i Uprawnienia NTFS
 Skonfigurowano bezpieczny udział plikowy `\\DC01\Dane_Firmowe` oraz zmapowano go automatycznie na stacji roboczej.
 <img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/34dfffa6-a6e5-42af-a527-bc56ecdcba91" />
+
+
+## Phase 2: Wazuh SIEM & Security Monitoring
+
+W kolejnym etapie rozwoju mojego domowego laba skupiłem się na wdrożeniu warstwy bezpieczeństwa, monitoringu (SOC / Blue Team) oraz automatyzacji powiadomień.
+
+### Wdrożone komponenty i konfiguracja
+1. **Wazuh SIEM Manager & Agent:** 
+   * Uruchomienie menedżera Wazuh na systemie Ubuntu.
+   * Konfiguracja sieci wewnętrznej w VirtualBox (`intnet`) oraz stabilnego routingu i statycznego adresowania IP.
+   * Pomyślne podłączenie agenta Wazuh na kontrolerze domeny (`DC01`) i weryfikacja statusu aktywnego.
+2. **Monitoring Active Directory:**
+   * Konfiguracja zbierania logów z kanału bezpieczeństwa systemu Windows (Security Event Channel).
+   * Śledzenie kluczowych zdarzeń w domenie, m.in. tworzenia nowych kont użytkowników oraz modyfikacji ich atrybutów (Event ID `4720`, `4738` i powiązane).
+3. **Pipeline powiadomień (Postfix + Mailtrap):**
+   * Konfiguracja lokalnego przekaźnika pocztowego Postfix na maszynie Ubuntu.
+   * Uruchomienie uwierzytelniania SASL (`smtp_sasl_auth_enable`) oraz zmapowanie danych w pliku `sasl_passwd` w celu spełnienia wymogów bezpieczeństwa zewnętrznej piaskownice SMTP (`sandbox.smtp.mailtrap.io`).
+   * Automatyczna dostawa alertów bezpieczeństwa Wazuh bezpośrednio do skrzynki testowej.
+
+### Dowody i zrzuty ekranu (Screenshots)
+<img width="1710" height="1387" alt="Stan Wazuh" src="https://github.com/user-attachments/assets/d508fe6c-b876-491b-ab36-866b187f4019" />
+<img width="1024" height="830" alt="Logi Wazuh" src="https://github.com/user-attachments/assets/b1a1f409-77ea-43ab-88d7-b3ed810bcd08" />
+<img width="1715" height="1386" alt="Logi WS" src="https://github.com/user-attachments/assets/6b0e3602-49d1-4b1e-8f6a-629062351fcd" />
+<img width="1024" height="389" alt="MailTrap" src="https://github.com/user-attachments/assets/bd4022b9-0175-4457-ad72-ecba3efd8648" />
+
+
