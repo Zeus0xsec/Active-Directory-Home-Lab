@@ -1,55 +1,35 @@
-#  Active Directory & Infrastructure Home Lab
+# 🏢 Active Directory & Corporate Infrastructure Home Lab
 
-##  O projekcie
-Wdrożenie i konfiguracja lokalnego środowiska wirtualnego opartego o Windows Server 2022 oraz Windows 11 Enterprise w celu symulacji infrastruktury firmowej.
+[![PL](https://img.shields.io/badge/Język-Polski-red.svg)](README_PL.md)
+[![EN](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
 
-##  Użyte Technologie
-* Windows Server 2022 (Active Directory DS, DNS, GPO, SMB)
-* Windows 11 Pro / Enterprise
-* Oracle VirtualBox (Internal Network / Isolated Lab)
-* PowerShell / CLI
+## 📌 Project Overview
+This project demonstrates the design and deployment of a fully functional Windows Server Active Directory environment from scratch. It simulates a small corporate network infrastructure using Oracle VirtualBox, focusing on identity management, network services (DNS, DHCP), and security policies.
 
+## ⚙️ Technologies & Tools
+* **OS:** Windows Server 2022, Windows 11 (Client)
+* **Virtualization:** Oracle VirtualBox
+* **Core Services:** Active Directory Domain Services (AD DS), DNS, SMB/NTFS
+* **Management & Automation:** Group Policy Objects (GPO), PowerShell
 
-##  Zrealizowane zadania & Dowody (Screenshots)
+## 🚀 Key Features Configured
+* Deployed a Windows Server 2022 Domain Controller (`cyberlab.local`).
+* Configured isolated VirtualBox Internal Networking (`intnet`) with static IP addressing.
+* Structured Organizational Units (OUs) for realistic company departments (IT, HR, Management).
+* Automated the creation of test users using **PowerShell** scripts.
+* Implemented **GPO (Group Policy Objects)** to enforce security (e.g., disabling Command Prompt for standard users, mapping network drives).
+* Configured NTFS permissions for secure file sharing via SMB.
 
-1. Konfiguracja AD DS i Dołączenie Klienta
-Skonfigurowano kontroler domeny `cyberlab.local`. Stacja robocza Windows 11 została pomyślnie dołączona do domeny.
-<img width="3429" height="1385" alt="Weryfikacja domeny" src="https://github.com/user-attachments/assets/26850b53-ecf1-4b10-bf88-d86f76744132" />
+## 🛠️ Challenges & Troubleshooting (How I solved them)
+1. **Network Connectivity & Internet Access on DC:**
+   * *Problem:* When assigning a static IP for the internal network, the Domain Controller lost external internet access (needed for updates).
+   * *Solution:* I configured dual network adapters (NAT for external, Internal Network for local domain traffic) and adjusted routing metrics in PowerShell so domain traffic stays local while internet traffic routes through NAT.
+2. **Client Domain Join Failure (DNS Resolution):**
+   * *Problem:* The Windows 11 client machine couldn't find the `cyberlab.local` domain to join it.
+   * *Solution:* I identified that the client was using the default VirtualBox DNS. I manually pointed the client's IPv4 DNS settings directly to the static IP of the Domain Controller, which resolved the issue immediately.
 
-2. Struktura OU (Organizational Units)
-Zaprojektowano czytelną strukturę OU (`Firma` -> `Uzytkownicy` / `Komputery`) i przeniesiono obiekty domenowe.
-<img width="3430" height="1385" alt="OU" src="https://github.com/user-attachments/assets/c810e74a-9f52-4849-8d9b-65e4de69ce7c" />
-
-3. Wdrożenie Polityk GrupRH (GPO)
-Utworzono i wyegzekwowano politykę GPO blokującą dostęp do Wiersza Poleceń dla użytkowników domenowych.
-<img width="3431" height="1387" alt="Polityka GPO" src="https://github.com/user-attachments/assets/c03358a2-18d3-4d3a-9be1-c9b20bac9df8" />
-
-4. Udziały Plikowe SMB i Uprawnienia NTFS
-Skonfigurowano bezpieczny udział plikowy `\\DC01\Dane_Firmowe` oraz zmapowano go automatycznie na stacji roboczej.
-<img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/34dfffa6-a6e5-42af-a527-bc56ecdcba91" />
-
-
-## Phase 2: Wazuh SIEM & Security Monitoring
-
-W kolejnym etapie rozwoju mojego domowego laba skupiłem się na wdrożeniu warstwy bezpieczeństwa, monitoringu (SOC / Blue Team) oraz automatyzacji powiadomień.
-
-### Wdrożone komponenty i konfiguracja
-1. **Wazuh SIEM Manager & Agent:** 
-   * Uruchomienie menedżera Wazuh na systemie Ubuntu.
-   * Konfiguracja sieci wewnętrznej w VirtualBox (`intnet`) oraz stabilnego routingu i statycznego adresowania IP.
-   * Pomyślne podłączenie agenta Wazuh na kontrolerze domeny (`DC01`) i weryfikacja statusu aktywnego.
-2. **Monitoring Active Directory:**
-   * Konfiguracja zbierania logów z kanału bezpieczeństwa systemu Windows (Security Event Channel).
-   * Śledzenie kluczowych zdarzeń w domenie, m.in. tworzenia nowych kont użytkowników oraz modyfikacji ich atrybutów (Event ID `4720`, `4738` i powiązane).
-3. **Pipeline powiadomień (Postfix + Mailtrap):**
-   * Konfiguracja lokalnego przekaźnika pocztowego Postfix na maszynie Ubuntu.
-   * Uruchomienie uwierzytelniania SASL (`smtp_sasl_auth_enable`) oraz zmapowanie danych w pliku `sasl_passwd` w celu spełnienia wymogów bezpieczeństwa zewnętrznej piaskownice SMTP (`sandbox.smtp.mailtrap.io`).
-   * Automatyczna dostawa alertów bezpieczeństwa Wazuh bezpośrednio do skrzynki testowej.
-
-### Dowody i zrzuty ekranu (Screenshots)
-<img width="1710" height="1387" alt="Stan Wazuh" src="https://github.com/user-attachments/assets/d508fe6c-b876-491b-ab36-866b187f4019" />
-<img width="1024" height="830" alt="Logi Wazuh" src="https://github.com/user-attachments/assets/b1a1f409-77ea-43ab-88d7-b3ed810bcd08" />
-<img width="1715" height="1386" alt="Logi WS" src="https://github.com/user-attachments/assets/6b0e3602-49d1-4b1e-8f6a-629062351fcd" />
-<img width="1024" height="389" alt="MailTrap" src="https://github.com/user-attachments/assets/bd4022b9-0175-4457-ad72-ecba3efd8648" />
-
-
+## 📸 Screenshots
+<img width="3429" height="1385" alt="Weryfikacja domeny" src="https://github.com/user-attachments/assets/23605b19-a545-4585-a6d7-3a3c8ec067e2" />
+<img width="3430" height="1385" alt="OU" src="https://github.com/user-attachments/assets/8adad143-59da-49b5-86d2-03ca905aef4b" />
+<img width="3431" height="1387" alt="Polityka GPO" src="https://github.com/user-attachments/assets/8b2b4883-1e65-4e0e-8bc6-4206a8aded6d" />
+<img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/23445728-5926-405d-bb55-df092922526f" />
