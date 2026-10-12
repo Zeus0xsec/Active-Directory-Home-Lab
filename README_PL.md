@@ -7,34 +7,34 @@
 Wdrożenie i konfiguracja lokalnego środowiska wirtualnego opartego o Windows Server 2022 oraz Windows 11 Enterprise w celu symulacji infrastruktury firmowej.
 
 ##  Użyte Technologie
-* Windows Server 2022 (Active Directory DS, DNS, GPO, SMB)
-* Windows 11 Pro / Enterprise
-* Oracle VirtualBox (Internal Network / Isolated Lab)
-* PowerShell / CLI
+- Windows Server 2022 (Active Directory DS, DNS, GPO, SMB, DHCP)
+- Windows 11 Pro / Enterprise
+- Oracle VirtualBox (Internal Network / Isolated Lab)
+- PowerShell / CLI
+- Wazuh SIEM / Sysmon / Postfix / Discord Webhooks
 
 
 ##  Zrealizowane zadania & Dowody (Screenshots)
 
 1. Konfiguracja AD DS i Dołączenie Klienta
 Skonfigurowano kontroler domeny `cyberlab.local`. Stacja robocza Windows 11 została pomyślnie dołączona do domeny.
-<img width="3429" height="1385" alt="Weryfikacja domeny" src="<img width="3429" height="1385" alt="Weryfikacja domeny" src="https://github.com/user-attachments/assets/f7d08a87-e773-402e-95af-ab9f3ac3fc69" />
+<img width="3429" height="1385" alt="Weryfikacja domeny" src="https://github.com/user-attachments/assets/f7d08a87-e773-402e-95af-ab9f3ac3fc69" />
 
 
 2. Struktura OU (Organizational Units)
 Zaprojektowano czytelną strukturę OU (`Firma` -> `Uzytkownicy` / `Komputery`) i przeniesiono obiekty domenowe.
-<img width="3430" height="1385" alt="OU" src="<img width="3430" height="1385" alt="OU" src="https://github.com/user-attachments/assets/dd9cf7de-0782-4daa-a8d3-879c8e019937" />
+<img width="3430" height="1385" alt="OU" src="https://github.com/user-attachments/assets/dd9cf7de-0782-4daa-a8d3-879c8e019937" />
    
 
 3. Wdrożenie Polityk GrupRH (GPO)
 Utworzono i wyegzekwowano politykę GPO blokującą dostęp do Wiersza Poleceń dla użytkowników domenowych.
-<img width="3431" height="1387" alt="Polityka GPO" src="<img width="3431" height="1387" alt="Polityka GPO" src="https://github.com/user-attachments/assets/8e59aeb7-1ced-4f4d-806b-22347f855aac" />
+<img width="3431" height="1387" alt="Polityka GPO" src="https://github.com/user-attachments/assets/8e59aeb7-1ced-4f4d-806b-22347f855aac" />
    
 
 4. Udziały Plikowe SMB i Uprawnienia NTFS
 Skonfigurowano bezpieczny udział plikowy `\\DC01\Dane_Firmowe` oraz zmapowano go automatycznie na stacji roboczej.
-<img width="3433" height="1386" alt="Zmapowany dysk" src="<img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/0efadeb1-5c21-432a-b050-178bef8146ed" />
+<img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/0efadeb1-5c21-432a-b050-178bef8146ed" />
    
-
 
 ## Phase 2: Wazuh SIEM & Security Monitoring
 
@@ -61,4 +61,40 @@ W kolejnym etapie rozwoju mojego domowego laba skupiłem się na wdrożeniu wars
 <img width="1024" height="830" alt="Logi Wazuh" src="https://github.com/user-attachments/assets/5d536fdb-a297-47d5-9575-9c035c469b97" />
 
 <img width="1024" height="389" alt="MailTrap" src="https://github.com/user-attachments/assets/92214127-1574-4796-8ca4-22f37368a0e2" />
+
+
+## Phase 3: Architektura Sieciowa, Hardening GPO i Zaawansowany Monitoring
+
+Dzisiaj skupiłem się na wdrożeniu pełnej architektury sieciowej, twardym hardeningu środowiska oraz integracji zaawansowanego rurociągu alertów SOC.
+
+### Wdrożone komponenty i konfiguracja
+1. **Usługa DHCP (Windows Server):** 
+   * Skonfigurowanie serwera DHCP z zakresem adresów (192.168.10.20–100).
+   * Wyznaczenie bezpiecznego bufora dla statycznego IP kontrolera domeny (.11), zapewniając dynamiczną, ale kontrolowaną konfigurację dla maszyn w sieci wewnętrznej.
+2. **Nowy klient i infrastruktura domeny:**
+   * Podłączenie nowej stacji roboczej (Windows 11 Enterprise), która poprawnie pobrała adresację DHCP oraz wpisy DNS.
+   * Pomyślne dołączenie maszyny do domeny `cyberlab.local` i przetestowanie bezpośredniego logowania na utworzone konta pracowników.
+3. **Zaawansowana struktura OU i Zarządzanie Tożsamością:**
+   * Podział użytkowników w Active Directory na dedykowane jednostki organizacyjne (IT, HR, Sprzedaż, Admini).
+   * Zastosowanie i przetestowanie polityk haseł, blokad kont oraz procedur ich resetowania.
+4. **Hardening GPO (Group Policy Objects):**
+   * Wdrożenie polityki GPO blokującej Panel Sterowania dla zwykłych pracowników.
+   * Skuteczne ograniczenie uprawnień na stacjach roboczych i udane testy egzekwowania nałożonych restrykcji.
+5. **Zaawansowany monitoring (Sysmon + Wazuh + Discord):**
+   * Rozbudowa rurociągu alertów: integracja zdarzeń generowanych przez Sysmon.
+   * Skonfigurowanie alertów tak, by reguły o wysokim poziomie krytyczności (level > 8) trafiały błyskawicznie nie tylko do dashboardu Wazuh, ale także jako powiadomienia w czasie rzeczywistym na dedykowany kanał na Discordzie.
+
+### Dowody i zrzuty ekranu (Screenshots)
+<img width="1021" height="851" alt="DHCP DOWOD" src="https://github.com/user-attachments/assets/d887da61-3563-4bad-af2b-ac646edd6864" />
+<img width="1714" height="1390" alt="DHCP" src="https://github.com/user-attachments/assets/b7c50adb-c8a9-4685-b203-5abbe55de0dd" />
+<img width="1017" height="846" alt="PRACOWNIK" src="https://github.com/user-attachments/assets/98089ab7-e6d4-4e9d-baab-2e9692eb9401" />
+<img width="1714" height="1389" alt="AD" src="https://github.com/user-attachments/assets/9174dad8-9c84-409a-8872-8cedabc4fa2a" />
+<img width="1713" height="1325" alt="SYSMON" src="https://github.com/user-attachments/assets/91239ef7-7f3d-4417-9999-e5947a934b69" />
+<img width="1023" height="809" alt="LOGI SYSMON" src="https://github.com/user-attachments/assets/f67caa65-5438-49d1-9c41-a97d39a126b9" />
+<img width="2190" height="1273" alt="LOGI DC" src="https://github.com/user-attachments/assets/e1b1ad47-3326-41c2-be5d-d953fc14d697" />
+
+
+
+
+
 
