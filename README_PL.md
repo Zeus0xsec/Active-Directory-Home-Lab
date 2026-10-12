@@ -1,35 +1,59 @@
-# 🏢 Środowisko Active Directory i Infrastruktura (Home Lab)
+# AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
 
-[![PL](https://img.shields.io/badge/Język-Polski-red.svg)](README_PL.md)
-[![EN](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
+[🇬🇧 English](README.md) | 🇵🇱 **Polski**
 
-## 📌 Cel Projektu
-Projekt prezentuje budowę w pełni funkcjonalnego środowiska domenowego Active Directory od zera. Symuluje infrastrukturę sieciową małej firmy przy użyciu Oracle VirtualBox, skupiając się na zarządzaniu tożsamością, usługach sieciowych oraz wdrażaniu polityk bezpieczeństwa.
+Zwirtualizowane środowisko w stylu firmowym do ćwiczenia codziennej pracy IT Support / Service Desk: administracja użytkownikami i grupami, diagnostyka DHCP i DNS, Group Policy oraz udziały plikowe. Zbudowane w Oracle VirtualBox.
 
-## ⚙️ Technologie i Narzędzia
-* **Systemy:** Windows Server 2022, Windows 11 (Klient)
-* **Wirtualizacja:** Oracle VirtualBox
-* **Główne Usługi:** Active Directory Domain Services (AD DS), DNS, SMB/NTFS
-* **Zarządzanie:** Zasady Grupy (GPO), PowerShell
+## Architektura
 
-## 🚀 Zrealizowane Zadania
-* Wdrożenie Kontrolera Domeny (`cyberlab.local`) na Windows Server 2022.
-* Konfiguracja izolowanej sieci wewnętrznej w VirtualBox z wykorzystaniem statycznego adresowania IP.
-* Zbudowanie struktury jednostek organizacyjnych (OU) dla różnych działów firmy.
-* Wykorzystanie skryptów **PowerShell** do zautomatyzowanego tworzenia użytkowników.
-* Wdrożenie **Zasad Grupy (GPO)** w celu zwiększenia bezpieczeństwa (np. blokada Wiersza Poleceń dla zwykłych użytkowników).
-* Konfiguracja bezpiecznych udziałów sieciowych z użyciem uprawnień NTFS i SMB.
+| Maszyna | System | Rola | Adres |
+|---|---|---|---|
+| DC01 | Windows Server 2022 Standard (Evaluation) | AD DS, DNS, DHCP, udział SMB | 192.168.10.11 (statyczny) |
+| Ubuntu LAB | Ubuntu | Menedżer Wazuh, Postfix (zob. [wazuh-siem-homelab](../wazuh-siem-homelab)) | 192.168.10.12 (statyczny) |
+| Klienty Win11 | Windows 11 Pro / Enterprise (Evaluation) | Stacje robocze w domenie | DHCP, 192.168.10.20-100 |
 
-## 🛠️ Problemy i jak je rozwiązałem (Troubleshooting)
-1. **Brak dostępu do internetu na Kontrolerze Domeny:**
-   * *Problem:* Po ustawieniu statycznego IP dla sieci wewnętrznej, serwer stracił dostęp do internetu.
-   * *Rozwiązanie:* Skonfigurowałem dwie karty sieciowe (NAT do internetu i Sieć Wewnętrzną do domeny) oraz dostosowałem priorytety routingu w PowerShell, aby ruch domenowy nie wychodził na zewnątrz.
-2. **Błąd dołączania stacji klienckiej do domeny (Problem z DNS):**
-   * *Problem:* Maszyna z Windows 11 nie mogła odnaleźć domeny `cyberlab.local`.
-   * *Rozwiązanie:* Zdiagnozowałem problem z rozwiązywaniem nazw. Ręcznie przypisałem adres IP Kontrolera Domeny jako główny serwer DNS w ustawieniach IPv4 klienta, co natychmiast rozwiązało problem.
+```mermaid
+flowchart LR
+  subgraph NET["Sieć wewnętrzna VirtualBox 192.168.10.0/24"]
+    DC["DC01 - Windows Server 2022<br/>AD DS, DNS, DHCP, SMB<br/>192.168.10.11"]
+    W["Klienty Windows 11<br/>DHCP 192.168.10.20-100"]
+    UB["Ubuntu - Wazuh + Postfix<br/>192.168.10.12"]
+  end
+  W -- "DHCP, DNS, Kerberos, SMB" --> DC
+  DC -- "agent Wazuh + Sysmon" --> UB
+```
 
-## 📸 Zrzuty ekranu
-<img width="3429" height="1385" alt="Weryfikacja domeny" src="https://github.com/user-attachments/assets/0136a436-9edb-47c3-af18-aec330d29430" />
-<img width="3430" height="1385" alt="OU" src="https://github.com/user-attachments/assets/e0aeee1d-1b56-402b-b6e6-853384b085eb" />
-<img width="3431" height="1387" alt="Polityka GPO" src="https://github.com/user-attachments/assets/320a42b6-fbf9-4cd5-baf3-e7350cc6e075" />
-<img width="3433" height="1386" alt="Zmapowany dysk" src="https://github.com/user-attachments/assets/6a53eb05-7b52-45d3-9467-cc6379261be4" />
+## Co jest skonfigurowane
+
+- Domena `cyberlab.local` na DC01, dwa klienty Windows 11 dołączone do domeny.
+- Struktura OU: `Pracownicy` z jednostkami `Admin`, `HR`, `IT`, `SPRZEDAZ`; oprócz tego `Komputery` i `Uzytkownicy`.
+- Zakres DHCP `lab-scope`: 192.168.10.20 - 192.168.10.100 /24, dzierżawa 8 dni. Serwery ze stałymi adresami (.11, .12) są poza zakresem, żeby uniknąć konfliktów IP.
+- Group Policy blokujące Wiersz poleceń i Panel sterowania dla pracowników. Sprawdzone przez `gpresult /r` dla użytkownika z OU `SPRZEDAZ`.
+- Udział SMB `Dane Firmowe` na DC01, zmapowany jako dysk `Z:` na klientach.
+- Zadania w stylu helpdesku: tworzenie użytkowników, reset hasła, włączanie i wyłączanie kont, przenoszenie między OU.
+
+## Dowody
+
+| | |
+|---|---|
+| ![Dołączenie do domeny](screenshots/01-domain-join-proof.png) **Klient dołączony do `cyberlab.local`** | ![whoami](screenshots/02-domain-user-whoami.png) **Zalogowany użytkownik domenowy (`whoami`)** |
+| ![Struktura OU](screenshots/03-ou-structure.png) **Struktura OU** | ![GPO](screenshots/04-gpo-block-cmd.png) **GPO podpięte, Wiersz poleceń zablokowany na kliencie** |
+| ![gpresult](screenshots/05-gpresult-user-sprzedaz.png) **`gpresult /r`: polityka zastosowana dla użytkownika z OU SPRZEDAZ** | ![SMB](screenshots/06-smb-share-mapped-drive.png) **Udział SMB i zmapowany dysk** |
+| ![Zakres DHCP](screenshots/07-dhcp-scope.png) **Zakres DHCP** | ![Dzierżawa](screenshots/08-client-dhcp-lease.jpg) **Dzierżawa klienta z 192.168.10.11 (`ipconfig /all`)** |
+| ![Pracownik](screenshots/09-employee-logon.png) **Logowanie konta pracownika** | |
+
+## Opisy rozwiązanych problemów
+
+Prawdziwe problemy z tego labu zapisane jako runbooki: [helpdesk-runbooks](../helpdesk-runbooks).
+
+## Znane problemy i następne kroki
+
+- Opcja routera w DHCP wskazuje obecnie na DC01. Zamienię ją na prawdziwą bramę (planowany pfSense).
+- DC01 rejestruje w DNS także adres z karty NAT, przez co klienci mogą dostać zły IP. Do wyłączenia rejestracji DNS na tej karcie.
+- Brak strefy wyszukiwania wstecznego (`nslookup` pokazuje `Server: UnKnown`).
+- Licencje Evaluation wygasają (Server 180 dni, Windows 11 Enterprise 90 dni). Trzymam snapshoty i dokumentuję konfigurację, żeby dało się odtworzyć lab.
+- Test uprawnień NTFS: zrzut karty Zabezpieczenia i Effective Access do dodania.
+
+## Zastrzeżenie
+
+Odizolowany lab z kontami testowymi i oprogramowaniem Evaluation. Brak danych produkcyjnych.
