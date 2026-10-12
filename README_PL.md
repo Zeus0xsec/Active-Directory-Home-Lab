@@ -1,4 +1,7 @@
-#  Active Directory & Infrastructure Home Lab
+# 🛡️ Active Directory & Infrastructure Home Lab
+
+[![PL](https://img.shields.io/badge/Język-Polski-red.svg)](README_PL.md)
+[![EN](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
 
 ##  O projekcie
 Wdrożenie i konfiguracja lokalnego środowiska wirtualnego opartego o Windows Server 2022 oraz Windows 11 Enterprise w celu symulacji infrastruktury firmowej.
