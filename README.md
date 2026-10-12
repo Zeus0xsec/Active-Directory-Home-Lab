@@ -1,6 +1,6 @@
 # AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
 
-🇬🇧 **English** | [🇵🇱 Polski](README.pl.md)
+🇬🇧 **English** | [🇵🇱 Polski](README_PL.md)
 
 A virtualized, company-style environment for practicing day-to-day IT Support / Service Desk work: user and group administration, DHCP and DNS troubleshooting, Group Policy and file shares. Built on Oracle VirtualBox.
 
