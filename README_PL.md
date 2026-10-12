@@ -1,4 +1,4 @@
-# AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
+<img width="3430" height="1385" alt="01-domain-join-proof" src="https://github.com/user-attachments/assets/c9825a88-542c-4b31-9e7f-2ac2302db350" /># AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
 
 [🇬🇧 English](README.md) | 🇵🇱 **Polski**
 
@@ -36,11 +36,17 @@ flowchart LR
 
 | | |
 |---|---|
-| ![Dołączenie do domeny](screenshots/01-domain-join-proof.png) **Klient dołączony do `cyberlab.local`** | ![whoami](screenshots/02-domain-user-whoami.png) **Zalogowany użytkownik domenowy (`whoami`)** |
-| ![Struktura OU](screenshots/03-ou-structure.png) **Struktura OU** | ![GPO](screenshots/04-gpo-block-cmd.png) **GPO podpięte, Wiersz poleceń zablokowany na kliencie** |
-| ![gpresult](screenshots/05-gpresult-user-sprzedaz.png) **`gpresult /r`: polityka zastosowana dla użytkownika z OU SPRZEDAZ** | ![SMB](screenshots/06-smb-share-mapped-drive.png) **Udział SMB i zmapowany dysk** |
-| ![Zakres DHCP](screenshots/07-dhcp-scope.png) **Zakres DHCP** | ![Dzierżawa](screenshots/08-client-dhcp-lease.jpg) **Dzierżawa klienta z 192.168.10.11 (`ipconfig /all`)** |
-| ![Pracownik](screenshots/09-employee-logon.png) **Logowanie konta pracownika** | |
+| ![Dołączenie do domeny](<img width="3430" height="1385" alt="01-domain-join-proof" src="https://github.com/user-attachments/assets/912a21db-40e6-4495-b59e-bfca69ec5dca" />
+) **Klient dołączony do `cyberlab.local`** | ![whoami](<img width="3429" height="1385" alt="02-domain-user-whoami" src="https://github.com/user-attachments/assets/c5f245c9-b681-4718-97e1-b541a4ed53fb" />
+) **Zalogowany użytkownik domenowy (`whoami`)** |
+| ![Struktura OU](<img width="1714" height="1389" alt="03-ou-structure" src="https://github.com/user-attachments/assets/c56028e2-c476-494d-9593-36ae00c6b325" />
+) **Struktura OU** | ![GPO](<img width="3431" height="1387" alt="04-gpo-block-cmd" src="https://github.com/user-attachments/assets/f558cf9d-7d82-4a8b-929c-34e63f91e2ed" />
+) **GPO podpięte, Wiersz poleceń zablokowany na kliencie** |
+| ![gpresult]() **`gpresult /r`: polityka zastosowana dla użytkownika z OU SPRZEDAZ** | ![SMB](<img width="779" height="563" alt="05-gpresult-user-sprzedaz" src="https://github.com/user-attachments/assets/bcadcd0f-905f-4f7c-934b-6e6e3e1dccba" />
+) **Udział SMB i zmapowany dysk** |
+| ![Zakres DHCP]() **Zakres DHCP** | ![Dzierżawa](<img width="1714" height="1390" alt="07-dhcp-scope" src="https://github.com/user-attachments/assets/a14c0a4a-ff25-43ef-bdff-15b062efbf80" />
+) **Dzierżawa klienta z 192.168.10.11 (`ipconfig /all`)** |
+| ![Pracownik]() **Logowanie konta pracownika** | |
 
 ## Opisy rozwiązanych problemów
 
@@ -53,7 +59,3 @@ Prawdziwe problemy z tego labu zapisane jako runbooki: [helpdesk-runbooks](../he
 - Brak strefy wyszukiwania wstecznego (`nslookup` pokazuje `Server: UnKnown`).
 - Licencje Evaluation wygasają (Server 180 dni, Windows 11 Enterprise 90 dni). Trzymam snapshoty i dokumentuję konfigurację, żeby dało się odtworzyć lab.
 - Test uprawnień NTFS: zrzut karty Zabezpieczenia i Effective Access do dodania.
-
-## Zastrzeżenie
-
-Odizolowany lab z kontami testowymi i oprogramowaniem Evaluation. Brak danych produkcyjnych.
