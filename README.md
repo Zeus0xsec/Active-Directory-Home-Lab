@@ -3,16 +3,14 @@
 [![PL](https://img.shields.io/badge/Język-Polski-red.svg)](README_PL.md)
 [![EN](https://img.shields.io/badge/Language-English-blue.svg)](README.md)
 
-#  Active Directory & Infrastructure Home Lab
-
 ##  About the Project
 Deployment and configuration of a local virtual environment based on Windows Server 2022 and Windows 11 Enterprise to simulate a corporate infrastructure.
 
 ##  Technologies Used
-- Windows Server 2022 (Active Directory DS, DNS, GPO, SMB)
-- Windows 11 Pro / Enterprise
-- Oracle VirtualBox (Internal Network / Isolated Lab)
-- PowerShell / CLI
+* Windows Server 2022 (Active Directory DS, DNS, GPO, SMB)
+* Windows 11 Pro / Enterprise
+* Oracle VirtualBox (Internal Network / Isolated Lab)
+* PowerShell / CLI
 
 
 ##  Completed Tasks & Evidence (Screenshots)
