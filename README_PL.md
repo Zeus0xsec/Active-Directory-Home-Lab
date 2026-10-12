@@ -36,20 +36,21 @@ flowchart LR
 
 | | |
 |---|---|
-| ![Dołączenie do domeny](<img width="3430" height="1385" alt="01-domain-join-proof" src="https://github.com/user-attachments/assets/03a19dca-6dce-4abc-8313-94164f396715" />
-) **Klient dołączony do `cyberlab.local`** | ![whoami](<img width="3429" height="1385" alt="02-domain-user-whoami" src="https://github.com/user-attachments/assets/c8a8c416-54d9-421e-8c9e-c7988ff44ea4" />
-) **Zalogowany użytkownik domenowy (`whoami`)** |
-| ![Struktura OU](<img width="1714" height="1389" alt="03-ou-structure" src="https://github.com/user-attachments/assets/22019034-8a68-4998-a9d5-e2f85441020b" />
-) **Struktura OU** | ![GPO](<img width="3431" height="1387" alt="04-gpo-block-cmd" src="https://github.com/user-attachments/assets/6d9e33fc-a140-4649-8f45-0d6a705fb41a" />
-) **GPO podpięte, Wiersz poleceń zablokowany na kliencie** |
-| ![gpresult](<img width="779" height="563" alt="05-gpresult-user-sprzedaz" src="https://github.com/user-attachments/assets/1a7f30eb-124c-4073-9c8f-8a2db59b23b6" />
-) **`gpresult /r`: polityka zastosowana dla użytkownika z OU SPRZEDAZ** | ![SMB](<img width="3433" height="1386" alt="06-smb-share-mapped-drive" src="https://github.com/user-attachments/assets/060700eb-6cdc-4e24-b004-e630694c63c3" />
-) **Udział SMB i zmapowany dysk** |
-| ![Zakres DHCP](<img width="1714" height="1390" alt="07-dhcp-scope" src="https://github.com/user-attachments/assets/d489652c-707a-4c13-918a-215071e94921" />
-) **Zakres DHCP** | ![Dzierżawa](<img width="1021" height="851" alt="08-client-dhcp-lease" src="https://github.com/user-attachments/assets/9775668a-cb2a-4acf-a6e4-4641ffbd1414" />
-) **Dzierżawa klienta z 192.168.10.11 (`ipconfig /all`)** |
-| ![Pracownik](<img width="1017" height="846" alt="09-employee-logon" src="https://github.com/user-attachments/assets/eca8a871-9a48-424e-8453-7067da42cd13" />
-) **Logowanie konta pracownika** | |
+| ![Dołączenie do domeny](<img width="3430" height="1385" alt="01-domain-join-proof" src="https://github.com/user-attachments/assets/03a19dca-6dce-4abc-8313-94164f396715" />) 
+**Klient dołączony do `cyberlab.local`** | ![whoami](<img width="3429" height="1385" alt="02-domain-user-whoami" src="https://github.com/user-attachments/assets/c8a8c416-54d9-421e-8c9e-c7988ff44ea4" />) 
+**Zalogowany użytkownik domenowy (`whoami`)** |
+| ![Struktura OU](<img width="1714" height="1389" alt="03-ou-structure" src="https://github.com/user-attachments/assets/22019034-8a68-4998-a9d5-e2f85441020b" />)
+**Struktura OU** | ![GPO](<img width="3431" height="1387" alt="04-gpo-block-cmd" src="https://github.com/user-attachments/assets/6d9e33fc-a140-4649-8f45-0d6a705fb41a" />)
+**GPO podpięte, Wiersz poleceń zablokowany na kliencie** |
+| ![gpresult](<img width="779" height="563" alt="05-gpresult-user-sprzedaz" src="https://github.com/user-attachments/assets/1a7f30eb-124c-4073-9c8f-8a2db59b23b6" />)
+**`gpresult /r`: polityka zastosowana dla użytkownika z OU SPRZEDAZ**
+| ![SMB](<img width="3433" height="1386" alt="06-smb-share-mapped-drive" src="https://github.com/user-attachments/assets/060700eb-6cdc-4e24-b004-e630694c63c3" />)
+**Udział SMB i zmapowany dysk** |
+| ![Zakres DHCP](<img width="1714" height="1390" alt="07-dhcp-scope" src="https://github.com/user-attachments/assets/d489652c-707a-4c13-918a-215071e94921" />)
+**Zakres DHCP** | ![Dzierżawa](<img width="1021" height="851" alt="08-client-dhcp-lease" src="https://github.com/user-attachments/assets/9775668a-cb2a-4acf-a6e4-4641ffbd1414" />)
+**Dzierżawa klienta z 192.168.10.11 (`ipconfig /all`)** |
+| ![Pracownik](<img width="1017" height="846" alt="09-employee-logon" src="https://github.com/user-attachments/assets/eca8a871-9a48-424e-8453-7067da42cd13" />)
+**Logowanie konta pracownika** | |
 
 ## Opisy rozwiązanych problemów
 
