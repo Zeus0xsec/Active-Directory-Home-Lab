@@ -51,11 +51,11 @@ W kolejnym etapie rozwoju mojego domowego laba skupiłem się na wdrożeniu wars
    * Automatyczna dostawa alertów bezpieczeństwa Wazuh bezpośrednio do skrzynki testowej.
 
 ### Dowody i zrzuty ekranu (Screenshots)
-<img width="1710" height="1387" alt="Stan Wazuh" src="<img width="1710" height="1387" alt="Stan Wazuh" src="https://github.com/user-attachments/assets/8dff5e7d-bbec-4854-9968-88aadc032fa3" />
+src="<img width="1710" height="1387" alt="Stan Wazuh" src="https://github.com/user-attachments/assets/8dff5e7d-bbec-4854-9968-88aadc032fa3" />
 
-<img width="1024" height="830" alt="Logi Wazuh" src="<img width="1715" height="1386" alt="Logi WS" src="https://github.com/user-attachments/assets/ae07d906-5dbb-41c6-abdc-6561bffadde5" />
+src="<img width="1715" height="1386" alt="Logi WS" src="https://github.com/user-attachments/assets/ae07d906-5dbb-41c6-abdc-6561bffadde5" />
 
-<img width="1715" height="1386" alt="Logi WS" src="<img width="1024" height="830" alt="Logi Wazuh" src="https://github.com/user-attachments/assets/5d536fdb-a297-47d5-9575-9c035c469b97" />
+src="<img width="1024" height="830" alt="Logi Wazuh" src="https://github.com/user-attachments/assets/5d536fdb-a297-47d5-9575-9c035c469b97" />
 
-<img width="1024" height="389" alt="MailTrap" src="<img width="1024" height="389" alt="MailTrap" src="https://github.com/user-attachments/assets/92214127-1574-4796-8ca4-22f37368a0e2" />
+src="<img width="1024" height="389" alt="MailTrap" src="https://github.com/user-attachments/assets/92214127-1574-4796-8ca4-22f37368a0e2" />
 
