@@ -1,4 +1,4 @@
-<img width="3430" height="1385" alt="01-domain-join-proof" src="https://github.com/user-attachments/assets/c9825a88-542c-4b31-9e7f-2ac2302db350" /># AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
+# AD Helpdesk Home Lab (Active Directory, DHCP, GPO, SMB)
 
 [🇬🇧 English](README.md) | 🇵🇱 **Polski**
 
