@@ -93,3 +93,37 @@ Today, I focused on deploying the full network architecture, strict environment 
 <img width="1023" height="809" alt="LOGI SYSMON" src="https://github.com/user-attachments/assets/e64a5a79-0f9a-4744-b15f-522a3088495b" />
 <img width="2190" height="1273" alt="LOGI DC" src="https://github.com/user-attachments/assets/6945ebaf-7c51-47da-808c-d6aed050741b" />
 
+
+## Phase 4: GPO Hardening, SMB/NTFS Security, and Real-Time FIM Monitoring
+
+In this phase, I focused on enforcing strict security policies across the domain, resolving access control conflicts on network shares, and enabling real-time File Integrity Monitoring (FIM).
+
+### Implemented Components and Configuration
+1. **GPO RDP Hardening & Firewall Control:** 
+   * Restricted Remote Desktop Protocol (RDP / Port 3389) access via GPO (*User Rights Assignment -> Allow log on through Remote Desktop Services*).
+   * Configured policies to allow remote desktop connections exclusively for designated IT/Admin security groups.
+2. **PowerShell ScriptBlock Logging (Event ID 4104):**
+   * Enforced domain-wide PowerShell auditing via GPO (`Turn on PowerShell ScriptBlock Logging`).
+   * Configured logging to capture full script content, enabling detection of obfuscated or encoded commands.
+3. **Automated Network Drive Mapping (Item-Level Targeting):**
+   * Configured GPO Drive Maps to automatically mount `\\DC01\WspolnydyskIT` as drive `Z:`.
+   * Applied Item-Level Targeting to ensure drive mapping occurs only for authorized domain user groups.
+4. **SMB Share & NTFS Permissions Alignment:**
+   * Resolved file creation and permission inheritance issues by synchronizing SMB Share access and NTFS Security permissions.
+   * Utilized CLI tools (`icacls` and `Grant-SmbShareAccess`) to grant full control (`(OI)(CI)F`) with proper object and container inheritance.
+5. **Wazuh File Integrity Monitoring (FIM / Syscheck):**
+   * Configured `ossec.conf` on `DC01` to monitor `C:\WspolnydyskIT` in real-time (`realtime="yes"` and `report_changes="yes"`).
+   * Verified instant SIEM alert generation for file creation, content modification, and deletion events.
+
+### Evidence and Screenshots
+<img width="1024" height="827" alt="3" src="https://github.com/user-attachments/assets/9849818b-0492-4e2d-b20e-366f8104e6ba" />
+<img width="1023" height="832" alt="4" src="https://github.com/user-attachments/assets/56c85d85-d772-46ab-aea2-04119d8e2cd2" />
+<img width="2193" height="1122" alt="wspolnydysk" src="https://github.com/user-attachments/assets/57043e52-6d25-40dc-bb7a-b4c7c87a9f87" />
+<img width="1715" height="1386" alt="testdysk" src="https://github.com/user-attachments/assets/aa2901df-7259-46f0-8727-540fe5a85756" />
+<img width="1634" height="753" alt="testdyskwazuh" src="https://github.com/user-attachments/assets/b9a5c24b-b568-4b04-887b-5782a80269f9" />
+<img width="1440" height="846" alt="wspolnydyskwin11" src="https://github.com/user-attachments/assets/a40351d4-d0c2-46b4-b758-0c133dac134f" />
+
+
+
+
+
