@@ -93,6 +93,35 @@ Dzisiaj skupiłem się na wdrożeniu pełnej architektury sieciowej, twardym har
 <img width="1023" height="809" alt="LOGI SYSMON" src="https://github.com/user-attachments/assets/f67caa65-5438-49d1-9c41-a97d39a126b9" />
 <img width="2190" height="1273" alt="LOGI DC" src="https://github.com/user-attachments/assets/e1b1ad47-3326-41c2-be5d-d953fc14d697" />
 
+## Faza 4: Utwardzanie GPO, Bezpieczeństwo SMB/NTFS i Monitoring FIM w Czasie Rzeczywistym
+
+W tej fazie skupiłem się na wdrożeniu rygorystycznych polityk bezpieczeństwa w domenie, rozwiązaniu konfliktów uprawnień na udziałach sieciowych oraz włączeniu monitorowania integralności plików (FIM) w czasie rzeczywistym.
+
+### Wdrożone Elementy i Konfiguracja
+1. **Utwardzanie GPO RDP i Kontrola Zapory:**
+   * Ograniczono dostęp do protokołu Remote Desktop Protocol (RDP / Port 3389) za pomocą GPO (*Przydzielanie praw użytkownika -> Zezwalaj na logowanie przez Usługi pulpitu zdalnego*).
+   * Skonfigurowano polityki zezwalające na połączenia pulpitu zdalnego wyłącznie wyznaczonym grupom bezpieczeństwa IT/Admin.
+2. **PowerShell ScriptBlock Logging (Event ID 4104):**
+   * Wdrożono audytowanie PowerShella w całej domenie za pomocą GPO (`Włącz rejestrowanie bloków skryptów programu PowerShell`).
+   * Skonfigurowano rejestrowanie logów w celu przechwytywania pełnej treści skryptów, co umożliwia detekcję zaciemnionych lub zakodowanych poleceń.
+3. **Automatyczne Mapowanie Dysków Sieciowych (Item-Level Targeting):**
+   * Skonfigurowano mapowanie dysków w GPO, aby automatycznie montować `\\DC01\WspolnydyskIT` jako dysk `Z:`.
+   * Zastosowano Item-Level Targeting, aby dysk mapował się wyłącznie dla uprawnionych grup użytkowników w domenie.
+4. **Synchronizacja Uprawnień SMB Share i NTFS:**
+   * Rozwiązano problemy z tworzeniem plików oraz dziedziczeniem praw poprzez zsynchronizowanie uprawnień udziału SMB i zabezpieczeń NTFS.
+   * Wykorzystano narzędzia CLI (`icacls` oraz `Grant-SmbShareAccess`) do nadania pełnej kontroli (`(OI)(CI)F`) z zachowaniem dziedziczenia dla obiektów i kontenerów.
+5. **Wazuh File Integrity Monitoring (FIM / Syscheck):**
+   * Skonfigurowano plik `ossec.conf` na `DC01` pod kątem monitorowania folderu `C:\WspolnydyskIT` w czasie rzeczywistym (`realtime="yes"` oraz `report_changes="yes"`).
+   * Zweryfikowano natychmiastowe generowanie alertów SIEM przy zdarzeniach utworzenia pliku, modyfikacji jego zawartości oraz usunięcia.
+
+### Dowody i Zrzuty Ekranu
+<img width="1024" height="827" alt="3" src="https://github.com/user-attachments/assets/9849818b-0492-4e2d-b20e-366f8104e6ba" />
+<img width="1023" height="832" alt="4" src="https://github.com/user-attachments/assets/56c85d85-d772-46ab-aea2-04119d8e2cd2" />
+<img width="2193" height="1122" alt="wspolnydysk" src="https://github.com/user-attachments/assets/57043e52-6d25-40dc-bb7a-b4c7c87a9f87" />
+<img width="1715" height="1386" alt="testdysk" src="https://github.com/user-attachments/assets/aa2901df-7259-46f0-8727-540fe5a85756" />
+<img width="1634" height="753" alt="testdyskwazuh" src="https://github.com/user-attachments/assets/b9a5c24b-b568-4b04-887b-5782a80269f9" />
+<img width="1440" height="846" alt="wspolnydyskwin11" src="https://github.com/user-attachments/assets/a40351d4-d0c2-46b4-b758-0c133dac134f" />
+
 
 
 
