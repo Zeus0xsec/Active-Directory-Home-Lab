@@ -6,6 +6,9 @@
 ##  About the Project
 Deployment and configuration of a local virtual environment based on Windows Server 2022 and Windows 11 Enterprise to simulate a corporate infrastructure.
 
+<img width="683" height="512" alt="image" src="https://github.com/user-attachments/assets/bec1e9ec-6d4e-4bbb-a894-2b3141e7edd1" />
+
+
 ##  Technologies Used
 - Windows Server 2022 (Active Directory DS, DNS, GPO, SMB, DHCP)
 - Windows 11 Pro / Enterprise
