@@ -6,6 +6,9 @@
 ##  O projekcie
 Wdrożenie i konfiguracja lokalnego środowiska wirtualnego opartego o Windows Server 2022 oraz Windows 11 Enterprise w celu symulacji infrastruktury firmowej.
 
+<img width="683" height="512" alt="image" src="https://github.com/user-attachments/assets/f4b9a5df-4ab0-43ba-8766-79a15171d847" />
+
+
 ##  Użyte Technologie
 - Windows Server 2022 (Active Directory DS, DNS, GPO, SMB, DHCP)
 - Windows 11 Pro / Enterprise
